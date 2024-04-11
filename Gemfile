@@ -67,3 +67,7 @@ group :test do
 end
 
 gem "pry"
+
+gem "devise"
+gem 'devise_invitable'
+
