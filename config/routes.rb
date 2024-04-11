@@ -7,15 +7,18 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "sessions#new"
-  # resources :user
+  devise_for :users
 
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
-  get '/register', to: 'users#new'
-  post '/register', to: 'users#create'
-  get 'dashboard/home'
+  devise_scope :user do
+    authenticated :user do
+      root 'dashboard#home', as: :authenticated_root
+    end
 
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+
+  end
   resources :artists do
     resources :songs
   end
