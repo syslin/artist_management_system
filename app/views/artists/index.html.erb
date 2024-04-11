@@ -1,0 +1,4 @@
+<% @artists.each do |artist|%>
+  <%= artist.fetch("name")%>
+  <%= link_to 'Add New Song', new_artist_song_path(artist.fetch("id")) %>
+<%end%>
