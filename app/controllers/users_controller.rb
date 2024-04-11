@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
   def index
+    sql = "Select * from Users;"
+    @users = ActiveRecord::Base.connection.execute(sql)
   end
 
   def new
@@ -24,6 +26,8 @@ class UsersController < ApplicationController
 
     redirect_to root_path, notice: 'Registered successfully!'
   end
+
+
 
   private
 
