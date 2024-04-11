@@ -14,5 +14,7 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
+  get '/logout', to: 'sessions#destroy', as: :logout
+
   get 'dashboard/home'
 end
