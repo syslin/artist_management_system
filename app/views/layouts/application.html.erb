@@ -9,10 +9,25 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <%= stylesheet_link_tag 'custom' %>
 
   </head>
 
   <body>
-    <%= yield %>
+  <% if current_user.present? %>
+    <div class="header">
+        <div class="header-left">
+            <span>Hello <%=current_user.first_name.titleize%> </span>
+        </div>
+        <div class="header-right">
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "logout-button" %>
+        </div>
+      </div>
+
+    <%= render partial: 'layouts/sidebar' %>
+  <%end%>
+    <div class="main-content">
+      <%= yield %>
+    </div>
   </body>
 </html>

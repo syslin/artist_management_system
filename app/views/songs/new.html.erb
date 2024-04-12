@@ -1,18 +1,1 @@
-<%= form_with(model: [@artist, @song], url: artist_songs_path(@artist), method: :post) do |form| %>
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :album_name %>
-    <%= form.text_field :album_name %>
-  </div>
-
-   <div class="field">
-    <%= form.label :genre %>
-    <%= form.select :genre, Song.genres.keys.map { |genre| [genre.capitalize, Song.genres[genre]] } %>
-  </div>
-
-  <%= form.submit %>
-<% end %>
+<%= render 'form', artist: @artist, song: @song %>

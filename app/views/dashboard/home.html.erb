@@ -1,25 +1,3 @@
 <h1> Dashboard </h1>
-<%= button_to "logout", destroy_user_session_path, method: :delete  %>
 
-<h1>User Management</h1>
-<div>
- <table border="1">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Gender</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= "#{user.fetch("first_name")} #{user.fetch("last_name")} " %></td>
-        <td><%= user.fetch("email") %></td>
-        <td><%= user.fetch("gender") %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-</div>
-
+<p> Welcome to dashboard </p>

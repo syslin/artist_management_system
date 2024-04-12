@@ -1,16 +1,34 @@
-<% if @artists.count !=0  %>
-  <% @artists.each do |artist|%>
-    <%= artist.fetch("name")%>
-    
-    <%= link_to 'Edit', edit_artist_path(artist.fetch("id")) %>
-    <%= link_to 'Detail', artist_path(artist.fetch("id")) %>
-    <%= button_to "delete",artist_path(artist.fetch("id")) , method: :delete  %>
-
-    <%= link_to 'Delete', artist_path(artist.fetch("id")), method: :delete %>
-  <%end%>
-<%else%>
-  <p>No Artist is present</p>
-<%end%>
-<%= link_to 'Add Artist', new_artist_path %>
+<h2> Artist Management</h2>
+<div>
+<%= link_to 'Add Artist', new_artist_path, class: "btn btn-primary" %>
 <%= link_to "Import CSV", import_artists_path, class: "btn btn-primary" %>
 <%= link_to "Export CSV", export_artists_path(format: :csv), class: "btn btn-primary" %>
+<table class="table-container">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date of Birth</th>
+      <th>Gender</th>
+      <th>Address</th>
+      <th>First relases year</th>
+      <th>No of Albums released</th>
+      <th colspan="3">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @artists.each do |artist|%>
+      <tr>
+        <td> <%= artist.fetch("name")%></td>
+        <td> <%= artist.fetch("dob").to_date%></td>
+        <td> <%= artist.fetch("gender")%></td>
+        <td> <%= artist.fetch("address")%></td>
+        <td> <%= artist.fetch("first_release_year")%></td>
+        <td> <%= artist.fetch("no_of_albums_released")%></td>
+        <td><%= link_to 'Edit', edit_artist_path(artist.fetch("id")), class: "btn btn-info" %></td>
+        <td> <%= link_to 'Detail', artist_path(artist.fetch("id")), class: "btn btn-info" %></td>
+        <td> <%= button_to "Delete",artist_path(artist.fetch("id")) , method: :delete , class: "btn btn-danger" %></td>
+      </tr>
+      <%end%>
+  </tbody>
+</table>
+</div>

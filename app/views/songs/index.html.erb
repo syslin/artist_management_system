@@ -1,14 +1,15 @@
+
 <h2> Song list of <%=@artist.name%></h2>
 <div>
- <table border="1">
+<%= link_to 'Add New Song', new_artist_song_path(@artist.id),  class: "btn btn-primary" %>
+<table class="table-container">
   <thead>
     <tr>
       <th>Title</th>
       <th>Album Name</th>
       <th>Genre</th>
-  <th></th>
-    <th></th>
-
+      <th></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>

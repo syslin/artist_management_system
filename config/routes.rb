@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     end
     resources :songs
   end
+  resources :users
 
   # resources :artists, only: [:edit, :update]
 

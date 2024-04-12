@@ -1,4 +1,5 @@
 class SongsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_artist
   before_action :set_song, only: [:edit, :update, :destroy]
 
