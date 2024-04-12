@@ -1,15 +1,16 @@
 
 <h2> Song list of <%=@artist.name%></h2>
 <div>
-<%= link_to 'Add New Song', new_artist_song_path(@artist.id),  class: "btn btn-primary" %>
+<% if current_user.artist?%>
+  <%= link_to 'Add New Song', new_artist_song_path(@artist.id),  class: "btn btn-primary" %>
+<%end%>
 <table class="table-container">
   <thead>
     <tr>
       <th>Title</th>
       <th>Album Name</th>
       <th>Genre</th>
-      <th></th>
-      <th></th>
+      <th colspan = 2> </th>
     </tr>
   </thead>
   <tbody>
@@ -17,9 +18,11 @@
       <tr>
         <td><%= song.title %></td>
         <td><%= song.album_name %></td>
-        <td><%= song.genre %></td>
-       <td> <%= link_to 'Edit', edit_artist_song_path(@artist, song) %> </td>
-       <td> <%= button_to "delete",artist_song_path(@artist, song), method: :delete, data: { confirm: "Are you sure?" }  %> </td>
+        <td><%= song.genre.titleize %></td>
+      <% if current_user.artist?%>
+        <td> <%= link_to 'Edit', edit_artist_song_path(@artist, song) %> </td>
+        <td> <%= button_to "Delete",artist_song_path(@artist, song), method: :delete, data: { confirm: "Are you sure?" }  %> </td>
+      <%end%>
       </tr>
       <%end%>
   </tbody>

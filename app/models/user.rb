@@ -8,6 +8,6 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
 
-  enum gender: [ :Male, :Female, :Other ]
-  enum role: [:Super_admin, :Artist_manager, :Artist]
+  enum gender: [ :male, :female, :other ]
+  enum role: [:super_admin, :artist_manager, :artist]
 end
