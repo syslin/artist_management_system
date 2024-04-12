@@ -1,19 +1,19 @@
 <div class="user-details">
   <div class="detail">
     <div class="label">Name:</div>
-    <div class="value"><%=@artist.name  %></div>
+    <div class="value"><%=@artist.name&.titleize %></div>
   </div>
   <div class="detail">
     <div class="label">Date of Birth:</div>
-    <div class="value"><%= @artist.dob.to_date%></div>
+    <div class="value"><%= @artist&.dob&.to_date%></div>
   </div>
   <div class="detail">
     <div class="label">Gender:</div>
-    <div class="value"><%= @artist.gender %></div>
+    <div class="value"><%= @artist.gender&.titleize %></div>
   </div>
   <div class="detail">
     <div class="label">Address:</div>
-    <div class="value"><%= @artist.address %></div>
+    <div class="value"><%= @artist.address&.titleize %></div>
   </div><div class="detail">
     <div class="label">First released Year:</div>
     <div class="value"><%= @artist.first_release_year %></div>

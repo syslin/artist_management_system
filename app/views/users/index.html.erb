@@ -6,15 +6,35 @@
       <th>Name</th>
       <th>Email</th>
       <th>Gender</th>
+      <th>Phone</th>
+      <th>Date of Birth</th>
+      <th>Address</th>
+      <th>Role</th>
+      <th>Created Through</th>
+      <th colspan=3>Action </th>
     </tr>
   </thead>
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= "#{user.fetch("first_name")} #{user.fetch("last_name")} " %></td>
-        <td><%= user.fetch("email") %></td>
-        <td><%= user.fetch("gender") %></td>
+        <td><%= "#{user.fetch("first_name")} #{user.fetch("last_name")} " || " - "  %></td>
+        <td><%= user.fetch("email")  %></td>
+        <td><%= User.genders.key(user.fetch("gender"))&.titleize|| " - "  %></td> 
+        <td><%= user.fetch("phone") || " - " %></td>
+        <td><%= user.fetch("dob")&.to_date || " - " %></td> 
+        <td><%= user.fetch("address") || " - "  %></td>
+        <td><%= User.roles.key(user.fetch("role"))&.titleize || " - " %></td> 
+        <td><%= user.fetch("invitation_sent_at").present? ? "Invitated" : "Registration" %></td> 
+        <%if current_user.super_admin?%>
+          <td><%= link_to 'Edit', edit_user_path(user.fetch("id")), class: "btn btn-info" %></td>
+          <td> <%= link_to 'Detail', user_path(user.fetch("id")), class: "btn btn-info" %></td>
+          <td> <%= button_to "Delete",user_path(user.fetch("id")) , method: :delete , class: "btn btn-danger" %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%if current_user.super_admin?%>
+  <%= link_to 'Add User', new_user_invitation_path,  class: "btn btn-primary" %>
+<%end%>
