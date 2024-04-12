@@ -1,4 +1,16 @@
-<% @artists.each do |artist|%>
-  <%= artist.fetch("name")%>
-  <%= link_to 'Add New Song', new_artist_song_path(artist.fetch("id")) %>
+<% if @artists.count !=0  %>
+  <% @artists.each do |artist|%>
+    <%= artist.fetch("name")%>
+    
+    <%= link_to 'Edit', edit_artist_path(artist.fetch("id")) %>
+    <%= link_to 'Detail', artist_path(artist.fetch("id")) %>
+    <%= button_to "delete",artist_path(artist.fetch("id")) , method: :delete  %>
+
+    <%= link_to 'Delete', artist_path(artist.fetch("id")), method: :delete %>
+  <%end%>
+<%else%>
+  <p>No Artist is present</p>
 <%end%>
+<%= link_to 'Add Artist', new_artist_path %>
+<%= link_to "Import CSV", import_artists_path, class: "btn btn-primary" %>
+<%= link_to "Export CSV", export_artists_path(format: :csv), class: "btn btn-primary" %>

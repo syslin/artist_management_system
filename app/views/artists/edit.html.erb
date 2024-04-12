@@ -1,0 +1,33 @@
+<%= form_with model: @artist, url: artist_path(@artist), method: :patch do |form| %>
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :dob, placeholder: "mm/dd/yyyy" %>
+    <%= form.text_field :dob%>
+  </div>
+
+  <div class="field">
+    <%= form.label :gender %>
+    <%= form.select :gender, User.genders.keys.map { |gender| [gender.capitalize, User.genders[gender]] } %>
+  </div>
+
+ <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+   <div class="field">
+    <%= form.label :first_release_year %>
+    <%= form.text_field :first_release_year %>
+  </div>
+
+  <div class="field">
+    <%= form.label :no_of_albums_released %>
+    <%= form.number_field :no_of_albums_released %>
+  </div>
+  <%= form.submit %>
+<% end %>
+

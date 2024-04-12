@@ -19,8 +19,17 @@ Rails.application.routes.draw do
     end
 
   end
+
   resources :artists do
+    collection do
+      get 'export', to: 'artists#export'
+      get 'import', to: 'artists#new_import'
+      post 'import', to: 'artists#import'
+    end
     resources :songs
   end
+
+  # resources :artists, only: [:edit, :update]
+
 end
 
