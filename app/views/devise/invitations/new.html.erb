@@ -1,0 +1,32 @@
+<h2><%= t "devise.invitations.new.header" %></h2>
+
+<%= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <% resource.class.invite_key_fields.each do |field| -%>
+    <div class="field">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :role %>
+    <%= f.select :role, options_for_select(User.roles.keys), prompt: 'Select Role' %>
+  </div>
+
+  <% end -%>
+
+  <div class="actions">
+    <%= f.submit t("devise.invitations.new.submit_button") %>
+  </div>
+<% end %>

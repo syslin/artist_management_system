@@ -1,0 +1,23 @@
+<div class="user-details">
+  <div class="detail">
+    <div class="label">Name:</div>
+    <div class="value"><%="#{@user.first_name} #{@user.last_name}"   %></div>
+  </div>
+  <div class="detail">
+    <div class="label">Date of Birth:</div>
+    <div class="value"><%= @user.dob.to_date%></div>
+  </div>
+  <div class="detail">
+    <div class="label">Gender:</div>
+    <div class="value"><%= @user.gender %></div>
+  </div>
+  <div class="detail">
+    <div class="label">Address:</div>
+    <div class="value"><%= @user.address %></div>
+  </div><div class="detail">
+    <div class="label">Role:</div>
+    <div class="value"><%= @user.role %></div>
+  </div>
+</div>
+
+

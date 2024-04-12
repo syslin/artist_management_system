@@ -6,6 +6,12 @@
       <th>Name</th>
       <th>Email</th>
       <th>Gender</th>
+      <th>Phone</th>
+      <th>Date of Birth</th>
+      <th>Address</th>
+      <th>Role</th>
+      <th>Created Through</th>
+      <th colspan=3>Action </th>
     </tr>
   </thead>
   <tbody>
@@ -13,8 +19,18 @@
       <tr>
         <td><%= "#{user.fetch("first_name")} #{user.fetch("last_name")} " %></td>
         <td><%= user.fetch("email") %></td>
-        <td><%= user.fetch("gender") %></td>
+        <td><%= user.fetch("gender") %></td> 
+        <td><%= user.fetch("phone") %></td>
+        <td><%= user.fetch("dob") %></td> 
+        <td><%= user.fetch("address") %></td>
+        <td><%= user.fetch("role") %></td> 
+        <td><%= user.fetch("invitation_sent_at").present? ? "Invitated" : "Registration" %></td> 
+        <td><%= link_to 'Edit', edit_user_path(user.fetch("id")), class: "btn btn-info" %></td>
+        <td> <%= link_to 'Detail', user_path(user.fetch("id")), class: "btn btn-info" %></td>
+        <td> <%= button_to "Delete",user_path(user.fetch("id")) , method: :delete , class: "btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<%= link_to 'Add User', new_user_invitation_path,  class: "btn btn-primary" %>
