@@ -34,7 +34,9 @@
     <% end %>
   </tbody>
 </table>
-
+    <%= link_to 'Previous', users_path(page: @page  - 1), class: 'pagination' if @page > 1 %>
+    <%= link_to @page, '#', class: 'pagination current' %>
+    <%= link_to 'Next', users_path(page: @page  + 1), class: 'pagination' if @users.count >= @per_page %>   
 <%if current_user.super_admin?%>
   <%= link_to 'Add User', new_user_invitation_path,  class: "btn btn-primary" %>
 <%end%>

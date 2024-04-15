@@ -5,8 +5,9 @@ class UsersController < ApplicationController
 
 
   def index
+    @page  = [params[:page].to_i, 1].max
     check_user_role([1,0, 2])  # Artist manager role & superadmin & artist
-    @users = fetch_users if authorized?
+    @users = fetch_users(@page) if authorized?
   end
 
   def new
@@ -102,8 +103,10 @@ class UsersController < ApplicationController
     @user_role.present?
   end
 
-  def fetch_users
-    sql = "Select * from Users;"
+  def fetch_users(page)
+    @per_page = 10
+    offset = (page - 1) * @per_page
+    sql = "Select * from Users limit #{@per_page} offset #{offset};"
     @users = ActiveRecord::Base.connection.execute(sql)
   end
 end

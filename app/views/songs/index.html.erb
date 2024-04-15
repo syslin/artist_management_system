@@ -1,5 +1,4 @@
 
-<h2> Song list of <%=@artist.name%></h2>
 <div>
 <% if current_user.artist?%>
   <%= link_to 'Add New Song', new_artist_song_path(@artist.id),  class: "btn btn-primary" %>
@@ -14,17 +13,20 @@
     </tr>
   </thead>
   <tbody>
-      <%@artist.songs.each do |song|%>
+      <%@songs.each do |song|%>
       <tr>
-        <td><%= song.title %></td>
-        <td><%= song.album_name %></td>
-        <td><%= song.genre.titleize %></td>
+        <td><%= song.fetch("title")%></td>
+        <td><%= song.fetch("album_name")%></td>
+        <td><%= Song.genres.key(song.fetch("genre"))&.titleize || " - " %></td> 
       <% if current_user.artist?%>
-        <td> <%= link_to 'Edit', edit_artist_song_path(@artist, song) %> </td>
-        <td> <%= button_to "Delete",artist_song_path(@artist, song), method: :delete, data: { confirm: "Are you sure?" }  %> </td>
+        <td> <%= link_to 'Edit', edit_artist_song_path(song.fetch("artist_id"), song.fetch("id")) %> </td>
+        <td> <%= button_to "Delete",artist_song_path(song.fetch("artist_id"), song.fetch("id")), method: :delete, data: { confirm: "Are you sure?" }  %> </td>
       <%end%>
       </tr>
       <%end%>
   </tbody>
 </table>
+ <%= link_to 'Previous', artist_songs_path(page: @page  - 1), class: 'pagination' if @page > 1 %>
+    <%= link_to @page, '#', class: 'pagination current' %>
+    <%= link_to 'Next', artist_songs_path(page: @page  + 1), class: 'pagination' if @songs.count >= @per_page %>   
 </div>

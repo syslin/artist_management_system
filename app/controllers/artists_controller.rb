@@ -4,8 +4,9 @@ class ArtistsController < ApplicationController
   before_action :find_current_user_role
 
   def index
+    @page  = [params[:page].to_i, 1].max
     check_user_role([1,0, 2])  # Artist manager role & superadmin & artist
-    @artists = fetch_artists if authorized?
+    @artists = fetch_artists(@page) if authorized?
   end
 
   def new
@@ -114,8 +115,10 @@ class ArtistsController < ApplicationController
     @user_role.present?
   end
 
-  def fetch_artists
-    sql = "SELECT * FROM artists"
+  def fetch_artists(page)
+    @per_page = 10
+    offset = (page - 1) * @per_page
+    sql = "Select * from artists limit #{@per_page} offset #{offset};"
     ActiveRecord::Base.connection.execute(sql)
   end
 end

@@ -35,4 +35,7 @@
       <%end%>
   </tbody>
 </table>
+    <%= link_to 'Previous', artists_path(page: @page  - 1), class: 'pagination' if @page > 1 %>
+    <%= link_to @page, '#', class: 'pagination current' %>
+    <%= link_to 'Next', artists_path(page: @page  + 1), class: 'pagination' if @artists.count >= @per_page %>     
 </div>
