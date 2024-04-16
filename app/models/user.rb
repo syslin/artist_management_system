@@ -4,10 +4,17 @@ class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
     
-  # validates_format_of :dob, :with => /\d{2}\/\d{2}\/\d{4}/, :message => "^Date must be in the following format: mm/dd/yyyy"
-
+         
   validates :first_name, presence: true
+  validates :email, presence: true, uniqueness: true
+  validate :dob_should_be_greater_than_today
+
 
   enum gender: [ :male, :female, :other ]
   enum role: [:super_admin, :artist_manager, :artist]
+
+  def dob_should_be_greater_than_today
+    errors.add(:dob, "should be a past date") if dob.present? && dob > Date.today
+  end
+  
 end

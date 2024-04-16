@@ -73,7 +73,7 @@ class ArtistsController < ApplicationController
   def import
     check_user_role([1]) # Artist manager role
     if authorized?
-      Artist.import(params[:file])
+      ImportService.import(params[:file])
       redirect_to artists_path, notice: "CSV imported successfully!"
     end
   end
@@ -82,7 +82,7 @@ class ArtistsController < ApplicationController
     check_user_role([1]) # Artist manager role
     if authorized?
       respond_to do |format|
-        format.csv { send_data Artist.to_csv, filename: "artists-#{Date.today}.csv" }
+        format.csv { send_data ExportService.to_csv, filename: "artists-#{Date.today}.csv" }
       end
     end
   end
