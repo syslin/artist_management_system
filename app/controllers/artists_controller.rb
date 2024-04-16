@@ -4,8 +4,9 @@ class ArtistsController < ApplicationController
   before_action :find_current_user_role
 
   def index
+    @page  = [params[:page].to_i, 1].max
     check_user_role([1,0, 2])  # Artist manager role & superadmin & artist
-    @artists = fetch_artists if authorized?
+    @artists = fetch_artists(@page) if authorized?
   end
 
   def new
@@ -72,7 +73,7 @@ class ArtistsController < ApplicationController
   def import
     check_user_role([1]) # Artist manager role
     if authorized?
-      Artist.import(params[:file])
+      ImportService.import(params[:file])
       redirect_to artists_path, notice: "CSV imported successfully!"
     end
   end
@@ -81,7 +82,7 @@ class ArtistsController < ApplicationController
     check_user_role([1]) # Artist manager role
     if authorized?
       respond_to do |format|
-        format.csv { send_data Artist.to_csv, filename: "artists-#{Date.today}.csv" }
+        format.csv { send_data ExportService.to_csv, filename: "artists-#{Date.today}.csv" }
       end
     end
   end
@@ -114,8 +115,10 @@ class ArtistsController < ApplicationController
     @user_role.present?
   end
 
-  def fetch_artists
-    sql = "SELECT * FROM artists"
+  def fetch_artists(page)
+    @per_page = 10
+    offset = (page - 1) * @per_page
+    sql = "Select * from artists limit #{@per_page} offset #{offset};"
     ActiveRecord::Base.connection.execute(sql)
   end
 end

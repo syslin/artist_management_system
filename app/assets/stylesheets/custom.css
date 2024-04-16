@@ -148,3 +148,30 @@
 .btn-primary:hover {
   background-color: #0056b3;
 }
+
+.pagination {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  text-decoration: none;
+  color: #333;
+}
+
+.pagination:hover {
+  background-color: #ddd;
+}
+
+.pagination.current {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.alert-success{
+  color: green;
+}
+.alert-danger{
+  color: red;
+}

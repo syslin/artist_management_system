@@ -4,6 +4,13 @@ class SongsController < ApplicationController
   before_action :set_song, only: [:edit, :update, :destroy]
   before_action :find_current_user_role
 
+  def index
+    @page  = [params[:page].to_i, 1].max
+    @artist_id = params[:artist_id]
+    check_user_role([1,0, 2])  # Artist manager role & superadmin & artist
+    @songs = fetch_songs(@page, @artist_id) if authorized?
+  end
+
   def new
     check_user_role([2])
     @song = @artist.songs.build if authorized?
@@ -87,5 +94,12 @@ class SongsController < ApplicationController
 
   def authorized?
     @user_role.present?
+  end
+
+  def fetch_songs(page, artist)
+    @per_page = 10
+    offset = (page - 1) * @per_page
+    sql = "Select * from songs where artist_id = #{artist} limit #{@per_page} offset #{offset} ;"
+    ActiveRecord::Base.connection.execute(sql)
   end
 end

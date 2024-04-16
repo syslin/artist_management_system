@@ -24,7 +24,7 @@
         <td><%= user.fetch("dob")&.to_date || " - " %></td> 
         <td><%= user.fetch("address") || " - "  %></td>
         <td><%= User.roles.key(user.fetch("role"))&.titleize || " - " %></td> 
-        <td><%= user.fetch("invitation_sent_at").present? ? "Invitated" : "Registration" %></td> 
+        <td><%= user.fetch("invitation_sent_at").present? ? "Invitation" : "Registration" %></td> 
         <%if current_user.super_admin?%>
           <td><%= link_to 'Edit', edit_user_path(user.fetch("id")), class: "btn btn-info" %></td>
           <td> <%= link_to 'Detail', user_path(user.fetch("id")), class: "btn btn-info" %></td>
@@ -34,7 +34,11 @@
     <% end %>
   </tbody>
 </table>
-
+<div class = "pt-2 pb-2">
+    <%= link_to 'Previous', users_path(page: @page  - 1), class: 'pagination' if @page > 1 %>
+    <%= link_to @page, '#', class: 'pagination current' %>
+    <%= link_to 'Next', users_path(page: @page  + 1), class: 'pagination' if @users.count >= @per_page %>   
 <%if current_user.super_admin?%>
   <%= link_to 'Add User', new_user_invitation_path,  class: "btn btn-primary" %>
 <%end%>
+</div>
