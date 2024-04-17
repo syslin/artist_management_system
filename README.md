@@ -14,6 +14,8 @@ This project is the admin portal to manage the artists information.
   
   ```rails db:create db:migrate```
 
+  ```rails db:seed```
+
 * Start Server 
    ``` rails s ```
 
