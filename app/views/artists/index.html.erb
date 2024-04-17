@@ -7,39 +7,43 @@
     <%= link_to "Export CSV", export_artists_path(format: :csv), class: "btn btn-primary" %>
   <%end%>
 </div>
-<table class="table-container">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Date of Birth</th>
-      <th>Gender</th>
-      <th>Address</th>
-      <th>First relases year</th>
-      <th>No of Albums released</th>
-      <th colspan="3">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% @artists.each do |artist|%>
+<% if @artists.count !=0%>
+  <table class="table-container">
+    <thead>
       <tr>
-        <td> <%= artist.fetch("name") || " - "%></td>
-        <td> <%= artist.fetch("dob")&.to_date || " - "%></td>
-        <td> <%= Artist.genders.key(artist.fetch("gender"))&.titleize || " - "%></td>
-        <td> <%= artist.fetch("address") || " - "%></td>
-        <td> <%= artist.fetch("first_release_year") || " - "%></td>
-        <td> <%= artist.fetch("no_of_albums_released") || " - "%></td>
-        <% if current_user.artist_manager? %>
-          <td><%= link_to 'Edit', edit_artist_path(artist.fetch("id")), class: "btn btn-info" %></td>
-          <td> <%= button_to "Delete",artist_path(artist.fetch("id")) , method: :delete , class: "btn btn-danger" %></td>
-        <%end%>
-          <td> <%= link_to 'Detail', artist_path(artist.fetch("id")), class: "btn btn-info" %></td>
+        <th>Name</th>
+        <th>Date of Birth</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>First relases year</th>
+        <th>No of Albums released</th>
+        <th colspan="3">Actions</th>
       </tr>
-      <%end%>
-  </tbody>
-</table>
-<div class = "pt-2 pb-2">
-    <%= link_to 'Previous', artists_path(page: @page  - 1), class: 'pagination' if @page > 1 %>
-    <%= link_to @page, '#', class: 'pagination current' %>
-    <%= link_to 'Next', artists_path(page: @page  + 1), class: 'pagination' if @artists.count >= @per_page %>     
-</div>
+    </thead>
+    <tbody>
+    <% @artists.each do |artist|%>
+        <tr>
+          <td> <%= artist.fetch("name") || " - "%></td>
+          <td> <%= artist.fetch("dob")&.to_date || " - "%></td>
+          <td> <%= Artist.genders.key(artist.fetch("gender"))&.titleize || " - "%></td>
+          <td> <%= artist.fetch("address") || " - "%></td>
+          <td> <%= artist.fetch("first_release_year") || " - "%></td>
+          <td> <%= artist.fetch("no_of_albums_released") || " - "%></td>
+          <% if current_user.artist_manager? %>
+            <td><%= link_to 'Edit', edit_artist_path(artist.fetch("id")), class: "btn btn-info" %></td>
+            <td> <%= button_to "Delete",artist_path(artist.fetch("id")) , method: :delete , class: "btn btn-danger" %></td>
+          <%end%>
+            <td> <%= link_to 'Detail', artist_path(artist.fetch("id")), class: "btn btn-info" %></td>
+        </tr>
+        <%end%>
+    </tbody>
+  </table>
+  <div class = "pt-2 pb-2">
+      <%= link_to 'Previous', artists_path(page: @page  - 1), class: 'pagination' if @page > 1 %>
+      <%= link_to @page, '#', class: 'pagination current' %>
+      <%= link_to 'Next', artists_path(page: @page  + 1), class: 'pagination' if @artists.count >= @per_page %>     
+  </div>
+<%else%>
+  <p> Artist not Available</p>
+<%end%> 
 </div>

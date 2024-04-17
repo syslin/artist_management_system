@@ -28,7 +28,7 @@
         <%if current_user.super_admin?%>
           <td><%= link_to 'Edit', edit_user_path(user.fetch("id")), class: "btn btn-info" %></td>
           <td> <%= link_to 'Detail', user_path(user.fetch("id")), class: "btn btn-info" %></td>
-          <td> <%= button_to "Delete",user_path(user.fetch("id")) , method: :delete , class: "btn btn-danger" %></td>
+          <td> <%= button_to "Delete",user_path(user.fetch("id")) , method: :delete , class: "btn btn-danger" %></td> 
         <%end%>
       </tr>
     <% end %>

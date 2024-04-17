@@ -149,6 +149,23 @@
   background-color: #0056b3;
 }
 
+.btn-info {
+  background-color: #30c5ca;
+} 
+
+.btn-info:hover {
+  background-color: #1480a1;
+}
+
+.btn-danger {
+  background-color: #ec4228;
+} 
+
+.btn-danger:hover {
+  background-color: #c01010;
+}
+
+
 .pagination {
   display: inline-block;
   margin: 0 5px;
